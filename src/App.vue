@@ -1,47 +1,108 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div class="wrapper">
+    <div class="inner">
+      <MessagesList :messages="messages" ref="messagesListRef" />
+      <MessageInput @send-message="handleSend" />
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
+<script setup>
+import { nextTick, onMounted, ref } from "vue";
+import MessageInput from "./components/MessageInput.vue";
+import MessagesList from "./components/MessagesList.vue";
+
+const messagesListRef = ref(null);
+
+const handleSend = (message) => {
+  messages.value.push({
+    id: new Date().getTime(),
+    sender: "user",
+    time: new Date().toLocaleTimeString(),
+    text: message,
+  });
+  nextTick(() => {
+    if (messagesListRef.value) {
+      messagesListRef.value.scrollMessagesToEnd();
+    }
+  });
+};
+
+onMounted(() => {
+  if (messagesListRef.value) {
+    messagesListRef.value.scrollMessagesToEnd();
+  }
+});
+
+const messages = ref([
+  {
+    id: 1,
+    sender: "user",
+    time: "12:00:31",
+    text: "Сообщение от пользователя. Как пример на пару предложений, визуально примерно средняя длина сообщения",
+  },
+  {
+    id: 2,
+    sender: "admin",
+    time: "13:12:12",
+    text: "Модератор ответил на сообщение. Другой пример средняя длина сообщения",
+  },
+  {
+    id: 3,
+    sender: "user",
+    time: "13:15:12",
+    text: "Сообщение от пользователя. Как пример на пару предложений, визуально примерно средняя длина сообщения",
+  },
+  {
+    id: 4,
+    sender: "admin",
+    time: "13:16:12",
+    text: "Модератор ответил на сообщение. Другой пример средняя длина сообщения",
+  },
+  {
+    id: 5,
+    sender: "user",
+    time: "13:17:12",
+    text: "Сообщение от пользователя. Как пример на пару предложений, визуально примерно средняя длина сообщения",
+  },
+  {
+    id: 6,
+    sender: "admin",
+    time: "13:18:12",
+    text: "Модератор ответил на сообщение. Другой пример средняя длина сообщения",
+  },
+  {
+    id: 7,
+    sender: "user",
+    time: "13:19:12",
+    text: "Сообщение от пользователя. Как пример на пару предложений, визуально примерно средняя длина сообщения",
+  },
+  {
+    id: 8,
+    sender: "admin",
+    time: "13:20:12",
+    text: "Модератор ответил на сообщение. Другой пример средняя длина сообщения",
+  },
+  {
+    id: 9,
+    sender: "user",
+    time: "13:21:12",
+    text: "Сообщение от пользователя. Как пример на пару предложений, визуально примерно средняя длина сообщения",
+  },
+]);
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
+.wrapper {
+  background: #ede6de;
+  padding: 8px;
+  height: 100%;
 }
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.inner {
+  max-width: 600px;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>
