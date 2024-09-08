@@ -49,7 +49,6 @@ const authorDict = {
 .author-img {
   width: 56px;
   height: 56px;
-  background: #ccc;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -67,12 +66,13 @@ const authorDict = {
   line-height: 1.3;
 }
 .message-item.--sent .message-bubble {
-  background: #e2ffc7;
+  background: #dcf1c8;
   width: fit-content;
   max-width: 70%;
 }
 .message-item.--received .message-bubble {
   background: #ffffff;
+  border: 1px solid #eee;
   width: fit-content;
   max-width: 70%;
 }

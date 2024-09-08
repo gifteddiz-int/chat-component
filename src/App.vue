@@ -1,108 +1,66 @@
 <template>
   <div class="wrapper">
-    <div class="inner">
-      <MessagesList :messages="messages" ref="messagesListRef" />
-      <MessageInput @send-message="handleSend" />
+    <div class="content-inner">
+      <ChatItem v-if="selectedChatId" :key="selectedChatId" :currentChat="chats.find((el) => el.id === selectedChatId)" @selectChat="selectChat" />
+      <ChatsList :chats="chats" @selectChat="selectChat" v-else />
     </div>
   </div>
 </template>
 
 <script setup>
-import { nextTick, onMounted, ref } from "vue";
-import MessageInput from "./components/MessageInput.vue";
-import MessagesList from "./components/MessagesList.vue";
+import ChatItem from "./components/ChatItem.vue";
+import ChatsList from "./components/ChatsList.vue";
 
-const messagesListRef = ref(null);
+import { ref } from "vue";
 
-const handleSend = (message) => {
-  messages.value.push({
-    id: new Date().getTime(),
-    sender: "user",
-    time: new Date().toLocaleTimeString(),
-    text: message,
-  });
-  nextTick(() => {
-    if (messagesListRef.value) {
-      messagesListRef.value.scrollMessagesToEnd();
-    }
-  });
+const selectedChatId = ref(null);
+
+const selectChat = (id) => {
+  selectedChatId.value = id;
 };
 
-onMounted(() => {
-  if (messagesListRef.value) {
-    messagesListRef.value.scrollMessagesToEnd();
-  }
-});
-
-const messages = ref([
+const chats = ref([
   {
     id: 1,
-    sender: "user",
-    time: "12:00:31",
-    text: "Сообщение от пользователя. Как пример на пару предложений, визуально примерно средняя длина сообщения",
+    img: "https://placehold.jp/5090f7/ffffff/150x150.png",
+    title: "Пример названия",
+    lastMessageTime: "12:00:31",
+    lastMessage: "Последнее сообщение в этом чате может быть длинным и уходит в многоточие",
   },
   {
     id: 2,
-    sender: "admin",
-    time: "13:12:12",
-    text: "Модератор ответил на сообщение. Другой пример средняя длина сообщения",
+    img: "https://placehold.jp/f75082/ffffff/150x150.png",
+    title: "Другое название в этот раз длинное чтобы убедиться как оно выглядит",
+    lastMessageTime: "12:00:51",
+    lastMessage: "Последнее сообщение в этом чате может быть длинным и уходит в многоточие",
   },
   {
     id: 3,
-    sender: "user",
-    time: "13:15:12",
-    text: "Сообщение от пользователя. Как пример на пару предложений, визуально примерно средняя длина сообщения",
+    img: "https://placehold.jp/61ad35/ffffff/150x150.png",
+    title: "Еще одно название",
+    lastMessageTime: "12:00:11",
+    lastMessage: "Последнее сообщение в этом чате может быть длинным и уходит в многоточие",
   },
   {
     id: 4,
-    sender: "admin",
-    time: "13:16:12",
-    text: "Модератор ответил на сообщение. Другой пример средняя длина сообщения",
-  },
-  {
-    id: 5,
-    sender: "user",
-    time: "13:17:12",
-    text: "Сообщение от пользователя. Как пример на пару предложений, визуально примерно средняя длина сообщения",
-  },
-  {
-    id: 6,
-    sender: "admin",
-    time: "13:18:12",
-    text: "Модератор ответил на сообщение. Другой пример средняя длина сообщения",
-  },
-  {
-    id: 7,
-    sender: "user",
-    time: "13:19:12",
-    text: "Сообщение от пользователя. Как пример на пару предложений, визуально примерно средняя длина сообщения",
-  },
-  {
-    id: 8,
-    sender: "admin",
-    time: "13:20:12",
-    text: "Модератор ответил на сообщение. Другой пример средняя длина сообщения",
-  },
-  {
-    id: 9,
-    sender: "user",
-    time: "13:21:12",
-    text: "Сообщение от пользователя. Как пример на пару предложений, визуально примерно средняя длина сообщения",
+    img: "https://placehold.jp/f750d3/ffffff/150x150.png",
+    title: "Еще одно название",
+    lastMessageTime: "12:00:21",
+    lastMessage: "Последнее сообщение в этом чате может быть длинным и уходит в многоточие",
   },
 ]);
 </script>
 
 <style scoped>
 .wrapper {
-  background: #ede6de;
-  padding: 8px;
+  display: flex;
   height: 100%;
+  width: 100%;
 }
-.inner {
+.content-inner {
   max-width: 600px;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 </style>

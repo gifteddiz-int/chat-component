@@ -39,7 +39,7 @@ defineExpose({ scrollMessagesToEnd });
   overflow-y: auto;
   height: 100%;
   scrollbar-width: thin;
-  scrollbar-color: #888 transparent;
+  scrollbar-color: #ccc transparent;
 }
 
 .messages-list-wrapper::-webkit-scrollbar {
@@ -47,11 +47,12 @@ defineExpose({ scrollMessagesToEnd });
 }
 
 .messages-list-wrapper::-webkit-scrollbar-thumb {
-  background-color: #888;
+  background-color: #ccc;
   border-radius: 6px;
 }
 .messages-list {
   display: flex;
   flex-direction: column;
+  padding: 0 8px;
 }
 </style>

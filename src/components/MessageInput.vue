@@ -65,8 +65,9 @@ const handleKeyDown = (e) => {
   width: 100%;
   display: flex;
   color: #ccc;
-  padding: 8px 0;
+  padding: 8px;
   flex-shrink: 0;
+  background-color: #ededed;
 }
 
 .form {
