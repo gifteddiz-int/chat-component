@@ -9,8 +9,17 @@
 </head>
 
 <body>
-  <div id="app" style="height: 100vh;"></div>
+  <div id="app" style="height: 100vh;height: calc(var(--vh, 1vh) * 100);"></div>
   <script type="module" src="/src/main.js"></script>
+  <script>
+    // Calculate the vh unit dynamically
+    function setVH() {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    setVH();
+    window.addEventListener('resize', setVH);
+  </script>
 </body>
 
 </html>
