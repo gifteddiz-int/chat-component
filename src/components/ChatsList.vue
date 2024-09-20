@@ -41,6 +41,7 @@ const emits = defineEmits("selectChat");
 .chat-btn {
   width: 100%;
   background-color: #fff;
+  color: #000;
   border: 0;
   text-align: left;
   max-width: 100%;
